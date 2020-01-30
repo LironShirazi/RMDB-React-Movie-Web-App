@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
 
- const Navigation = (props) => {
-    return (
+ const Navigation = (props) => (
         <div className="rmdb-navigation">
             <div className="rmdb-navigation-content">
                 <Link to="/">
@@ -13,7 +12,7 @@ import './Navigation.css';
                 <p>{props.movie}</p>
             </div>
         </div>
-    )
-}
+);
+
 
 export default Navigation;

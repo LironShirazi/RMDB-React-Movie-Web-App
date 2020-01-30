@@ -28,6 +28,50 @@ import './Movie.css';
          }
     }
 
+    fetchItems = async endpoint => {
+        const { movieId } = this.props.match.params;
+        try {
+            const result = await (await fetch(endpoint)).json();
+            if(result.status_code) {
+                this.setState({ loading: false});
+            } else {
+                this.setState({ movie: result });
+                const creditsEndpoint = `${api_config.API_URL}movie/${movieId}/credits?api_key=${api_config.API_KEY}`
+                const creditResult = await (await fetch(creditsEndpoint)).json();
+                const directors = creditResult.crew.filter( member => member.job === 'Director');
+                this.setState({
+                    actors: creditResult.cast,
+                    directors: directors,
+                    loading: false
+                }, () => {
+                    localStorage.setItem(`${this.props.match.params.movieId}`, JSON.stringify(this.state));
+                })
+              }
+            }
+             
+
+                //then fetching actors in the setstate callback function
+            //     const endpoint = `${api_config.API_URL}movie/${this.props.match.params.movieId}/credits?api_key=${api_config.API_KEY}`
+            //     fetch(endpoint)
+            //     .then(result => result.json())
+            //     .then(result => {
+            //         const directors = result.crew.filter( member => member.job === 'Director');
+            //         this.setState({
+            //             actors: result.cast,
+            //             directors: directors,
+            //             loading: false
+            //         }, () => {
+            //             localStorage.setItem(`${this.props.match.params.movieId}`, JSON.stringify(this.state));
+            //         })
+            //       }) 
+            //     });
+            //   }
+        
+        catch(e) {
+            console.log('An error occourd: ', e);
+        }
+    }
+
     fetchItems(endpoint) {
         fetch(endpoint)
         .then(result => result.json())

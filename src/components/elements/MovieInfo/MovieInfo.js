@@ -4,8 +4,7 @@ import './MovieInfo.css';
 import FontAwesome from 'react-fontawesome';
 import MovieThumb from '../MovieThumb/MovieThumb';
 
-const MovieInfo = (props) => {
-    return (
+const MovieInfo = (props) => (
         <div className="rmdb-movieinfo" 
         style={{
             background: props.movie.backdrop_path ? `url('${api_config.IMAGE_BASE_URL}${api_config.BACKDROP_SIZE}${props.movie.backdrop_path}')`: '#0000'
@@ -33,13 +32,9 @@ const MovieInfo = (props) => {
                     })}
                 </div>
                 <FontAwesome className="fa-film" name="film" size="5x" />
-            </div>
-
-
-            
-            
+            </div>     
         </div>
-    )
-}
+    );
+
 
 export default MovieInfo;
